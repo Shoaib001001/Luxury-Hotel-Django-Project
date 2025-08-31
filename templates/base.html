@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #ffd700;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0f0f0f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-content {
+            display: none;
+            animation: fadeIn 0.5s;
+            min-height: 70vh;
+        }
+        
+        #home-page {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2c3e50 100%) !important;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--gold) !important;
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--gold) !important;
+            transform: translateY(-2px);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+            color: #000 !important;
+            font-weight: 600;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #b8860b 0%, var(--gold) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Hero Sections */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3') center/cover;
+            color: white;
+            padding: 7rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        /* Section headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Footer Styles */
+        .luxury-footer {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: auto;
+            border-top: 3px solid var(--gold);
+        }
+        
+        .footer-heading {
+            color: var(--gold);
+            font-weight: 600;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .contact-info {
+            margin-bottom: 1.2rem;
+        }
+        
+        .contact-info i {
+            color: var(--gold);
+            width: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: rgba(255, 215, 0, 0.1);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--gold);
+            color: black;
+            transform: translateY(-3px);
+        }
+        
+        .room-image {
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+        
+        .amenities-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .amenities-list li {
+            margin-bottom: 8px;
+        }
+        
+        .amenities-list li:before {
+            content: "✓";
+            color: var(--gold);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .spa-treatment {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spa-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .contact-info-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .recipe-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .recipe-image {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('home-page')">
+                <i class="fas fa-hotel me-2"></i>LUXURY HOTEL
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showPage('home-page')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('rooms-page')">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('recipes-page')">Dining</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('spa-page')">Spa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('contact-page')">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('login-page')">Login</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a href="#" class="btn btn-gold" onclick="showPage('rooms-page')">Book Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4">Experience Luxury Redefined</h1>
+                <p class="lead mb-4">Discover the perfect blend of comfort, style, and exceptional service at our premium hotel.</p>
+                <a href="#" class="btn btn-gold btn-lg me-3" onclick="showPage('rooms-page')">Book Now</a>
+                <a href="#" class="btn btn-outline-light btn-lg" onclick="showPage('rooms-page')">Explore Rooms</a>
+            </div>
+        </section>
+
+        <!-- Featured Rooms -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col">
+                        <h2 class="display-4">Luxurious Rooms & Suites</h2>
+                        <p class="lead">Indulge in our exquisitely furnished accommodations</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Deluxe Room">
+                            <div class="card-body">
+                                <h5 class="card-title">Deluxe Room</h5>
+                                <p class="card-text">Spacious room with luxurious amenities and stunning views</p>
+                                <p class="h5 text-primary">$199<small>/night</small></p>
+                                <a href="#" class="btn btn-gold mt-3" onclick="showPage('rooms-page')">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Executive Suite">
+                            <div class="card-body">
+                                <h5 class="card-title">Executive Suite</h5>
+                                <p class="card-text">Elegant suite with separate living area and premium services</p>
+                                <p class="h5 text-primary">$299<small>/night</small></p>
+                                <a href="#" class="btn btn-gold mt-3" onclick="showPage('rooms-page')">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Presidential Suite">
+                            <div class="card-body">
+                                <h5 class="card-title">Presidential Suite</h5>
+                                <p class="card-text">The ultimate in luxury with panoramic views and exclusive access</p>
+                                <p class="h5 text-primary">$499<small>/night</small></p>
+                                <a href="#" class="btn btn-gold mt-3" onclick="showPage('rooms-page')">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="luxury-footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Hotel Information -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h5 class="footer-heading">
+                            <i class="fas fa-hotel me-2"></i>Luxury Hotel
+                        </h5>
+                        <p class="mb-4">Experience unparalleled luxury and exceptional service at our premium hotel. Your comfort is our priority.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h6 class="footer-heading">Quick Links</h6>
+                        <div class="footer-links">
+                            <a href="#" onclick="showPage('home-page')">Home</a>
+                            <a href="#" onclick="showPage('rooms-page')">Rooms & Suites</a>
+                            <a href="#" onclick="showPage('recipes-page')">Dining</a>
+                            <a href="#" onclick="showPage('spa-page')">Spa & Wellness</a>
+                            <a href="#" onclick="showPage('contact-page')">Contact</a>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h6 class="footer-heading">Services</h6>
+                        <div class="footer-links">
+                            <a href="#">24/7 Room Service</a>
+                            <a href="#">Swimming Pool</a>
+                            <a href="#">Conference Room</a>
+                            <a href="#">Airport Transfer</a>
+                            <a href="#">Wedding Planning</a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info & Newsletter -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <h6 class="footer-heading">Contact Information</h6>
+                        <div class="contact-info">
+                            <p><i class="fas fa-map-marker-alt"></i> 123 Luxury Street, City, State 12345</p>
+                            <p><i class="fas fa-phone"></i> +1 (555) 123-LUXURY</p>
+                            <p><i class="fas fa-envelope"></i> info@luxuryhotel.com</p>
+                        </div>
+                        
+                        <h6 class="footer-heading mt-4">Newsletter</h6>
+                        <p class="mb-3">Subscribe for exclusive offers and updates</p>
+                        <div class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Your email address">
+                                <button class="btn" type="button">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <div class="copyright text-center">
+                    <p class="mb-0">&copy; 2024 Luxury Hotel. All rights reserved.</p>
+                    <p class="mb-0">
+                        <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                        <a href="#" class="text-white text-decoration-none me-3">Terms of Service</a>
+                        <a href="#" class="text-white text-decoration-none">Cookie Policy</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Rooms Page -->
+    <div id="rooms-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4">Luxurious Accommodations</h1>
+                <p class="lead mb-4">Discover our exquisite collection of rooms and suites designed for ultimate comfort</p>
+            </div>
+        </section>
+
+        <!-- Rooms Section -->
+        <div class="container py-5">
+            <div class="section-header">
+                <h2>Rooms & Suites</h2>
+                <p>Choose from our selection of premium accommodations</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Deluxe Room">
+                            <div class="price-tag">$199/night</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Deluxe Room</h3>
+                            <p class="text-muted">Room 101-120</p>
+                            <p>Our Deluxe Rooms offer a perfect blend of comfort and style with modern amenities and elegant decor.</p>
+                            
+                            <ul class="amenities-list">
+                                <li>King Size Bed</li>
+                                <li>City View</li>
+                                <li>Marble Bathroom</li>
+                                <li>Smart TV</li>
+                                <li>Free WiFi</li>
+                            </ul>
+                            
+                            <a href="#" class="btn btn-gold w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Executive Suite">
+                            <div class="price-tag">$299/night</div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">Executive Suite</h3>
+                            <p class="text-muted">Suite 201-210</p>
+                            <p>Spacious suites with separate living areas, perfect for business travelers or families.</p>
+                            
+                            <ul class="amenities-list">
+                                <li>Separate Living Area</li>
+                                <li>Premium Minibar</li>
+                                <li>Executive Work Desk</li>
+                                <li>Panoramic Views</li>
+                                <li>Priority Check-in</li>
+                            </ul>
+                            
+                            <a href="#" class="btn btn-gold w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recipes (Dining) Page -->
+    <div id="recipes-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3');">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4">Culinary Excellence</h1>
+                <p class="lead mb-4">Experience world-class dining with our master chefs' signature recipes</p>
+            </div>
+        </section>
+
+        <!-- Dining Section -->
+        <div class="container py-5">
+            <div class="section-header">
+                <h2>Restaurants & Bars</h2>
+                <p>Discover our exceptional dining venues offering diverse culinary experiences</p>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Main Restaurant">
+                        <div class="card-body">
+                            <h3 class="card-title">The Grand Restaurant</h3>
+                            <p class="text-muted">International Cuisine • Breakfast, Lunch & Dinner</p>
+                            <p>Our signature restaurant offers a diverse menu of international dishes prepared with locally sourced ingredients.</p>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Grilled Atlantic Salmon</h5>
+                                    <span class="text-primary">$32</span>
+                                </div>
+                                <p class="text-muted">With lemon butter sauce and seasonal vegetables</p>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Prime Rib Eye Steak</h5>
+                                    <span class="text-primary">$42</span>
+                                </div>
+                                <p class="text-muted">Aged 28 days, served with truffle mashed potatoes</p>
+                            </div>
+                            
+                            <a href="#" class="btn btn-gold w-100 mt-3">View Full Menu</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3" class="card-img-top room-image" alt="Sky Bar">
+                        <div class="card-body">
+                            <h3 class="card-title">Sky Bar & Lounge</h3>
+                            <p class="text-muted">Cocktails & Light Bites • 5pm - 1am</p>
+                            <p>Rooftop bar offering panoramic city views, signature cocktails, and a selection of tapas.</p>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Signature Mojito</h5>
+                                    <span class="text-primary">$16</span>
+                                </div>
+                                <p class="text-muted">Premium rum, fresh mint, lime juice, and soda</p>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Charcuterie Board</h5>
+                                    <span class="text-primary">$24</span>
+                                </div>
+                                <p class="text-muted">Selection of artisan cheeses and cured meats</p>
+                            </div>
+                            
+                            <a href="#" class="btn btn-gold w-100 mt-3">View Cocktail Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Recipe Section (for logged in users) -->
+            <div class="row mt-5" id="add-recipe-section" style="display: none;">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Add Your Recipe</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="add-recipe-form">
+                                <div class="mb-3">
+                                    <label for="recipe-title" class="form-label">Recipe Title</label>
+                                    <input type="text" class="form-control" id="recipe-title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipe-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="recipe-description" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipe-ingredients" class="form-label">Ingredients</label>
+                                    <textarea class="form-control" id="recipe-ingredients" rows="5" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipe-instructions" class="form-label">Instructions</label>
+                                    <textarea class="form-control" id="recipe-instructions" rows="5" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipe-image" class="form-label">Image URL</label>
+                                    <input type="url" class="form-control" id="recipe-image">
+                                </div>
+                                <button type="submit" class="btn btn-gold">Add Recipe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spa Page -->
+    <div id="spa-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3');">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4">Wellness & Relaxation</h1>
+                <p class="lead mb-4">Rejuvenate your mind, body and soul at our luxury spa</p>
+            </div>
+        </section>
+
+        <!-- Spa Section -->
+        <div class="container py-5">
+            <div class="section-header">
+                <h2>Spa & Wellness Center</h2>
+                <p>Indulge in our exclusive treatments designed for complete relaxation</p>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="spa-treatment">
+                            <div class="spa-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h3>Signature Massages</h3>
+                            <p>Our expert therapists use a blend of techniques to relieve tension and promote relaxation.</p>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Aromatherapy Massage</h5>
+                                    <span class="text-primary">$120</span>
+                                </div>
+                                <p class="text-muted">60 minutes</p>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Hot Stone Therapy</h5>
+                                    <span class="text-primary">$145</span>
+                                </div>
+                                <p class="text-muted">75 minutes</p>
+                            </div>
+                            
+                            <a href="#" class="btn btn-gold mt-3">Book Treatment</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="spa-treatment">
+                            <div class="spa-icon">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <h3>Hydrotherapy</h3>
+                            <p>Water-based treatments that harness the healing properties of water for relaxation.</p>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Thermal Bath</h5>
+                                    <span class="text-primary">$85</span>
+                                </div>
+                                <p class="text-muted">45 minutes</p>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Vichy Shower Treatment</h5>
+                                    <span class="text-primary">$110</span>
+                                </div>
+                                <p class="text-muted">60 minutes</p>
+                            </div>
+                            
+                            <a href="#" class="btn btn-gold mt-3">Book Treatment</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="spa-treatment">
+                            <div class="spa-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3>Beauty Treatments</h3>
+                            <p>Pamper yourself with our range of facial and beauty treatments using premium products.</p>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Anti-Aging Facial</h5>
+                                    <span class="text-primary">$135</span>
+                                </div>
+                                <p class="text-muted">75 minutes</p>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Detox Body Wrap</h5>
+                                    <span class="text-primary">$150</span>
+                                </div>
+                                <p class="text-muted">90 minutes</p>
+                            </div>
+                            
+                            <a href="#" class="btn btn-gold mt-3">Book Treatment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4">Get In Touch</h1>
+                <p class="lead mb-4">We're here to make your experience exceptional</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <div class="container py-5">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Reach out to us for reservations, inquiries, or special requests</p>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Address</h4>
+                        <p>123 Luxury Street<br>Premium District<br>City, State 12345</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>Phone</h4>
+                        <p>+1 (555) 123-LUXURY<br>+1 (555) 987-HELP</p>
+                        <p class="text-muted">24/7 Available</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p>info@luxuryhotel.com<br>reservations@luxuryhotel.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card">
+                        <div class="card-body p-5">
+                            <h3 class="card-title text-center mb-4">Send us a Message</h3>
+                            <form id="contact-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Subject *</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Message *</label>
+                                    <textarea class="form-control" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-gold btn-lg w-100">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-3 fw-bold mb-4">Member Login</h1>
+                <p class="lead mb-4">Access your account to manage bookings and preferences</p>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="login-container">
+                        <h2 class="text-center mb-4">Sign In</h2>
+                        <form id="login-form">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="login-username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="login-password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-gold w-100 mb-3">Login</button>
+                            <div class="text-center">
+                                <a href="#">Forgot Password?</a>
+                            </div>
+                        </form>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="text-center">
+                            <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Form (initially hidden) -->
+            <div class="row justify-content-center mt-4" id="register-form" style="display: none;">
+                <div class="col-md-8">
+                    <div class="form-container">
+                        <h2 class="text-center mb-4">Create Account</h2>
+                        <form id="registration-form">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="first-name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="last-name" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="register-email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="register-username" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="register-password" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirm-password" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold w-100 mb-3">Register</button>
+                            <div class="text-center">
+                                <a href="#" onclick="hideRegisterForm()">Already have an account? Login here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to show the selected page and hide others
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Update active navigation link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to the clicked link
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Function to show register form
+        function showRegisterForm() {
+            document.getElementById('register-form').style.display = 'block';
+            document.getElementById('login-form').closest('.login-container').style.display = 'none';
+        }
+        
+        // Function to hide register form
+        function hideRegisterForm() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').closest('.login-container').style.display = 'block';
+        }
+        
+        // Login form handler
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Simulate login (replace with actual API call to your Django backend)
+            if (username && password) {
+                alert('Login successful!');
+                // Show add recipe section for logged in users
+                document.getElementById('add-recipe-section').style.display = 'block';
+                // Redirect to home page
+                showPage('home-page');
+            } else {
+                alert('Please enter both username and password');
+            }
+        });
+        
+        // Registration form handler
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('register-email').value;
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Simulate registration (replace with actual API call to your Django backend)
+            alert('Registration successful! You can now login.');
+            hideRegisterForm();
+        });
+        
+        // Add recipe form handler
+        document.getElementById('add-recipe-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('recipe-title').value;
+            const description = document.getElementById('recipe-description').value;
+            const ingredients = document.getElementById('recipe-ingredients').value;
+            const instructions = document.getElementById('recipe-instructions').value;
+            
+            // Simulate adding recipe (replace with actual API call to your Django backend)
+            alert('Recipe added successfully!');
+            this.reset();
+        });
+        
+        // Contact form handler
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simulate form submission (replace with actual API call to your Django backend)
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

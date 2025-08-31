@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-4">Contact Us</h1>
+        <p class="lead">We'd love to hear from you. Get in touch with us!</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card">
+            <div class="card-body p-4">
+                <h3 class="card-title mb-4">Send us a Message</h3>
+                
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+                <form id="contact-form" method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <div class="text-danger">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email Address</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.subject.id_for_label }}" class="form-label">Subject</label>
+                        {{ form.subject }}
+                        {% if form.subject.errors %}
+                        <div class="text-danger">{{ form.subject.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.message.id_for_label }}" class="form-label">Message</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                        <div class="text-danger">{{ form.message.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-gold btn-lg">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="contact-info-card mb-4">
+            <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h4>Address</h4>
+            <p>123 Luxury Street<br>Premium District<br>City, State 12345</p>
+        </div>
+        
+        <div class="contact-info-card mb-4">
+            <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+            </div>
+            <h4>Phone</h4>
+            <p>+1 (555) 123-LUXURY<br>+1 (555) 987-HELP</p>
+            <p class="text-muted">24/7 Available</p>
+        </div>
+        
+        <div class="contact-info-card">
+            <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <h4>Email</h4>
+            <p>info@luxuryhotel.com<br>reservations@luxuryhotel.com</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

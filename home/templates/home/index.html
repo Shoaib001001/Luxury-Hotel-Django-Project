@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4">Experience Luxury Redefined</h1>
+        <p class="lead mb-4">Discover the perfect blend of comfort, style, and exceptional service at our premium hotel.</p>
+        <a href="{% url 'recipe_list' %}" class="btn btn-gold btn-lg me-3">Explore Recipes</a>
+        <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Contact Us</a>
+    </div>
+</section>
+
+<!-- Featured Recipes -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col">
+                <h2 class="display-4">Featured Recipes</h2>
+                <p class="lead">Discover our delicious signature dishes</p>
+            </div>
+        </div>
+        <div class="row">
+            {% for recipe in featured_recipes %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ recipe.image.url }}" class="card-img-top recipe-image" alt="{{ recipe.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                        <p class="card-text">{{ recipe.description|truncatewords:20 }}</p>
+                        <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-gold mt-3">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
